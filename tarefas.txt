@@ -1,0 +1,3 @@
+Valor de SP
+Registradores entre etapas
+forwarding unit
