@@ -9,9 +9,8 @@ Vetor: .space 1
 .text	
 MAIN:   jal INICIALIZA
 
-	la a0,Vetor
+	lui a0 0x10010
 	li a1,N
-	#jal SHOW
 	jal SHOW2
 
 	la a0,Vetor
@@ -20,7 +19,7 @@ MAIN:   jal INICIALIZA
 
 	la a0,Vetor
 	li a1,N
-	#jal SHOW
+	
 	jal SHOW2
 
 FINAL:	j FINAL
@@ -65,25 +64,6 @@ exit1: 	lw s0,0(sp)
 	addi sp,sp,20
 	ret
 
-SHOW:	mv t0,a0
-	mv t1,a1
-	mv t2,zero
-
-loop1: 	beq t2,t1,fim1
-	li a7,1
-	lw a0,0(t0)
-	ecall
-	li a7,11
-	li a0,9
-	ecall
-	addi t0,t0,4
-	addi t2,t2,1
-	j loop1
-
-fim1:	li a7,11
-	li a0,10
-	ecall
-	ret
 
 SHOW2:	mv t0,a0
 	mv t1,a1
@@ -101,8 +81,9 @@ fim12:	ret
 
 INICIALIZA:       # Inicializa a RAM de dados com o vetor a partir do endere�o 0x10010000
 #Vetor:  .word 9,2,5,1,8,2,4,3,6,7,10,2,32,54,2,12,-6,3,1,78,54,23,1,54,2,65,3,6,55,31,4,-4
-	li sp,0x100103FC
-	li t0,0x10010000
+	lui sp, 0x10010
+	addi sp, sp, 0x3fc
+	lui t0,0x10010
 	li a0,9
 	sw a0,0(t0)
 	li a0,2
@@ -169,3 +150,4 @@ INICIALIZA:       # Inicializa a RAM de dados com o vetor a partir do endere�o
 	sw a0,124(t0)	
 
 	ret
+
